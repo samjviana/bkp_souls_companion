@@ -1,0 +1,7 @@
+build/
+dist/
+.vscode/
+__pycache__/
+*.log
+*.spec
+script.js
