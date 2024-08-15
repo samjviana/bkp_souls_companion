@@ -1,10 +1,21 @@
 class WorldChrManImp {
     /**
+     * @private
+     */
+    _prevNumLoadedWorldBlocks;
+    /**
+     * @private
+     */
+    _loadedWorldChrs;
+
+    /**
      * Creates an instance of `WorldChrManImp`.
      * @param {NativePointer} address The address of the `WorldChrManImp` instance.
      */
     constructor(address) {
         this.address = address;
+        this._prevNumLoadedWorldBlocks = 0;
+        this._loadedWorldChrs = new Map();
     }
 
     /**
@@ -48,17 +59,22 @@ class WorldChrManImp {
     }
 
     get loadedWorldChrs() {
-        const _loadedWorldChrs = new Map();
+        if (this.numLoadedWorldBlocks == this._prevNumLoadedWorldBlocks) {
+            return this._loadedWorldChrs;
+        }
+        this._prevNumLoadedWorldBlocks = this.numLoadedWorldBlocks; 
+
+        this._loadedWorldChrs = new Map();
         for (const worldBlock of this.loadedWorldBlocks) {
             for (const chrSlot of worldBlock.chrSlots) {
                 if (chrSlot.chrIns.address.isNull()) {
                     continue;
                 }
 
-                _loadedWorldChrs.set(chrSlot.chrIns.handle, chrSlot.chrIns);
+                this._loadedWorldChrs.set(chrSlot.chrIns.handle, chrSlot.chrIns);
             }
         }
 
-        return _loadedWorldChrs;
+        return this._loadedWorldChrs;
     }
 }

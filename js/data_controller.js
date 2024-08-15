@@ -18,7 +18,7 @@ class DataController {
             type: 'target'
         };
         if (target !== null) {
-            data.target = {
+            data.data = {
                 address: target.address,
                 handle: target.handle,
                 modelId: target.modelId,

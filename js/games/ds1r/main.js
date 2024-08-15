@@ -5,7 +5,7 @@ class SoulsCompanion {
         Logger.info('Initializing SoulsCompanion...');
 
         this.worldChrMan = null;
-        this.worldChrManWatch = setInterval(this.watchWorldChrMan.bind(this), 500);
+        this.worldChrManWatch = setInterval(this.watchWorldChrMan.bind(this), 750);
 
         this.targetWatch = setInterval(this.watchTarget.bind(this), 500);
     }
@@ -20,7 +20,7 @@ class SoulsCompanion {
         if (this.worldChrMan.address.isNull()) {
             return;
         }
-
+        
         Logger.info(`WorldChrMan initialized at ${this.worldChrMan.address}`);
     }
 
