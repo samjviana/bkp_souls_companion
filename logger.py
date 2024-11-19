@@ -7,10 +7,10 @@ class Logger:
     logger = None
 
     def __init__(self) -> None:
-        Logger.logger = getLogger('ds1r_companion')
+        Logger.logger = getLogger('souls_companion')
         Logger.logger.setLevel(INFO)
 
-        file_handler = FileHandler('ds1r_companion.log')
+        file_handler = FileHandler('souls_companion.log')
         stream_handler = StreamHandler()
 
         formatter = Formatter('[%(asctime)s] [%(levelname)s] %(message)s', datefmt='%d/%m/%Y %H:%M:%S')

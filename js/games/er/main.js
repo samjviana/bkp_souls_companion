@@ -1,5 +1,5 @@
 class SoulsCompanion {
-    static WORLD_CHR_MAN_SIGNATURE = '48 8B 05 ?? ?? ?? ?? 48 8B 48 68 48 85 C9 0F';
+    static WORLD_CHR_MAN_SIGNATURE = '48 8B 05 ?? ?? ?? ?? 48 85 C0 74 0F 48 39 88';
     static WORLD_CHR_MAN_IMP_ADDRESS = 0x1C77E50;
 
     constructor() {
@@ -14,7 +14,7 @@ class SoulsCompanion {
 
     watchWorldChrMan() {
         const address = dereferenceAddress(signatureScan(SoulsCompanion.WORLD_CHR_MAN_SIGNATURE));
-        console.log(Memory.readPointer(SoulsCompanion.WORLD_CHR_MAN_IMP_ADDRESS));
+        // console.log(Memory.readPointer(SoulsCompanion.WORLD_CHR_MAN_IMP_ADDRESS));
         if (this.worldChrMan !== null && address.equals(this.worldChrMan.address)) {
             return;
         }
@@ -36,12 +36,12 @@ class SoulsCompanion {
         if (targetHandle === null) {
             return;
         }
-        if (targetHandle == -1) {
+        if (targetHandle.compare(new UInt64('0xFFFFFFFFFFFFFFFF')) === 0) {
             DataController.sendTarget(this.previousTarget);
             return;
         }
 
-        const target = this.worldChrMan.loadedWorldChrs.get(targetHandle);
+        const target = this.worldChrMan.loadedWorldChrs[targetHandle];
         if (target === undefined) {
             return;
         }
